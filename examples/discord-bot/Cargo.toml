@@ -1,0 +1,11 @@
+[package]
+name = "discord-bot-example"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+cxx = { path = "../.." }
+tokio = { version = "1.0", features = ["full"] }
+
+[build-dependencies]
+cxx-build = { path = "../../gen/build" }

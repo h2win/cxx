@@ -1,0 +1,37 @@
+#pragma once
+
+#include "rust/cxx.h"
+#include <memory>
+#include <string>
+
+// Forward declarations
+struct BotConfig;
+struct MessageData;
+
+// Discord bot wrapper class
+class DiscordBot {
+public:
+    DiscordBot(const BotConfig& config);
+    ~DiscordBot();
+    
+    bool start();
+    void stop();
+    bool send_message(const std::string& channel_id, const std::string& content);
+    std::string get_status() const;
+    
+private:
+    class Impl;
+    std::unique_ptr<Impl> pImpl;
+};
+
+// C++ functions exposed to Rust
+std::unique_ptr<DiscordBot> create_discord_bot(const BotConfig& config);
+bool start_bot(DiscordBot& bot);
+void stop_bot(DiscordBot& bot);
+bool send_message(DiscordBot& bot, const std::string& channel_id, const std::string& content);
+std::string get_bot_status(const DiscordBot& bot);
+
+// Rust callback functions (implemented in Rust)
+void on_message_received(const MessageData& message);
+void on_bot_ready(const std::string& bot_id);
+void on_error(const std::string& error_message);

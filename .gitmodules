@@ -1,0 +1,3 @@
+[submodule "third-party/DiscordCoreAPI"]
+	path = third-party/DiscordCoreAPI
+	url = https://github.com/RealTimeChris/DiscordCoreAPI.git
