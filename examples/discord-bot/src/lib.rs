@@ -21,9 +21,9 @@ mod ffi {
 
         // C++ functions
         fn create_discord_bot(config: &BotConfig) -> UniquePtr<DiscordBot>;
-        fn start_bot(bot: &mut DiscordBot) -> bool;
-        fn stop_bot(bot: &mut DiscordBot);
-        fn send_message(bot: &mut DiscordBot, channel_id: &str, content: &str) -> bool;
+        fn start_bot(bot: Pin<&mut DiscordBot>) -> bool;
+        fn stop_bot(bot: Pin<&mut DiscordBot>);
+        fn send_message(bot: Pin<&mut DiscordBot>, channel_id: &str, content: &str) -> bool;
         fn get_bot_status(bot: &DiscordBot) -> String;
     }
 
@@ -65,15 +65,15 @@ pub fn create_bot(token: String, intents: u32) -> cxx::UniquePtr<ffi::DiscordBot
     ffi::create_discord_bot(&config)
 }
 
-pub fn start(bot: &mut ffi::DiscordBot) -> bool {
+pub fn start(bot: std::pin::Pin<&mut ffi::DiscordBot>) -> bool {
     ffi::start_bot(bot)
 }
 
-pub fn stop(bot: &mut ffi::DiscordBot) {
+pub fn stop(bot: std::pin::Pin<&mut ffi::DiscordBot>) {
     ffi::stop_bot(bot)
 }
 
-pub fn send_message(bot: &mut ffi::DiscordBot, channel_id: &str, content: &str) -> bool {
+pub fn send_message(bot: std::pin::Pin<&mut ffi::DiscordBot>, channel_id: &str, content: &str) -> bool {
     ffi::send_message(bot, channel_id, content)
 }
 

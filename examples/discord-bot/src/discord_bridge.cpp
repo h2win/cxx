@@ -31,7 +31,7 @@ public:
         status = "Connected";
         
         // Simulate bot ready event
-        on_bot_ready("123456789012345678");
+        on_bot_ready(rust::Str("123456789012345678"));
         
         // Simulate receiving a message after a short delay
         std::thread([this]() {
@@ -59,7 +59,7 @@ public:
     
     bool send_message(const std::string& channel_id, const std::string& content) {
         if (!is_running) {
-            on_error("Cannot send message: bot is not running");
+            on_error(rust::Str("Cannot send message: bot is not running"));
             return false;
         }
         
@@ -111,10 +111,10 @@ void stop_bot(DiscordBot& bot) {
     bot.stop();
 }
 
-bool send_message(DiscordBot& bot, const std::string& channel_id, const std::string& content) {
-    return bot.send_message(channel_id, content);
+bool send_message(DiscordBot& bot, rust::Str channel_id, rust::Str content) {
+    return bot.send_message(std::string(channel_id), std::string(content));
 }
 
-std::string get_bot_status(const DiscordBot& bot) {
-    return bot.get_status();
+rust::String get_bot_status(const DiscordBot& bot) {
+    return rust::String(bot.get_status());
 }

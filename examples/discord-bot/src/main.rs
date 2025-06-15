@@ -22,7 +22,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("Bot status: {}", get_status(&bot));
     
     // Start the bot
-    if start(&mut bot) {
+    if start(bot.pin_mut()) {
         println!("Bot started successfully!");
         println!("Bot status: {}", get_status(&bot));
         
@@ -31,7 +31,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         
         // Send a test message (this would need a real channel ID in practice)
         let test_channel_id = "123456789012345678";
-        if send_message(&mut bot, test_channel_id, "Hello from Rust via CXX!") {
+        if send_message(bot.pin_mut(), test_channel_id, "Hello from Rust via CXX!") {
             println!("Test message sent successfully!");
         } else {
             println!("Failed to send test message");
@@ -41,7 +41,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         sleep(Duration::from_secs(3)).await;
         
         // Stop the bot
-        stop(&mut bot);
+        stop(bot.pin_mut());
         println!("Bot stopped");
         println!("Final bot status: {}", get_status(&bot));
     } else {
