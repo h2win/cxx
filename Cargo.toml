@@ -43,7 +43,7 @@ trybuild = { version = "1.0.81", features = ["diff"] }
 cxxbridge-cmd = { version = "=1.0.158", path = "gen/cmd" }
 
 [workspace]
-members = ["demo", "flags", "gen/build", "gen/cmd", "gen/lib", "macro", "tests/ffi"]
+members = ["demo", "flags", "gen/build", "gen/cmd", "gen/lib", "macro", "tests/ffi", "examples/discord-bot"]
 
 [package.metadata.docs.rs]
 targets = ["x86_64-unknown-linux-gnu"]
